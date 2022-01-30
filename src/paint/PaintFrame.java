@@ -16,10 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 public class PaintFrame{
 	
 	public static void main(String[] args){
+
+		//#region Describe icons Button
 		String icons = "icons/";
 		Icon iconSave = new ImageIcon(icons + "sa2.png");
 		Icon iconClear = new ImageIcon(icons + "clear.png");
@@ -48,58 +49,50 @@ public class PaintFrame{
 		Icon iconRec= new ImageIcon(icons + "rec.png");
 		Icon iconTri= new ImageIcon(icons + "tria.png");
 		Icon iconCir= new ImageIcon(icons + "cir.png");
+		//#endregion
+
+		// Create window of App
+		JFrame frame = new JFrame("Paint App");
 		
-		JFrame frame = new JFrame("Paint");
-		
-		
+		// Main Holder of tools
 		Container content = frame.getContentPane();
 		content.setLayout(new BorderLayout());
-		String fonts[] = 
-				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-		JComboBox<String> texts = new JComboBox<String>(fonts);
-		String sizes[] = { "8", "9", "10", "11", "12", "14", "16", "18","20","22","24","26","28","36","48","72"};
-		JComboBox<String> sz = new JComboBox<String>(sizes);
-		JTextField main=new JTextField();
+		
+		// operation class
 		final PadDrew drawPad = new PadDrew();
 		
 		content.add(drawPad, BorderLayout.CENTER);
 		
+		//#region "describe holder"
+
+		// left holder tools box
 		JPanel tools = new JPanel();
 		tools.setPreferredSize(new Dimension(100, 120));
 		tools.setMinimumSize(new Dimension(100, 120));
 		tools.setMaximumSize(new Dimension(100, 120));
 		
+		// right holder for line button
 		JPanel right= new JPanel();
 		right.setPreferredSize(new Dimension(100, 120));
 		right.setMinimumSize(new Dimension(100, 120));
 		right.setMaximumSize(new Dimension(100, 120));
 		
+		// up holder for textBox 
 		JPanel up= new JPanel();
 		right.setPreferredSize(new Dimension(100, 120));
 		right.setMinimumSize(new Dimension(100, 120));
 		right.setMaximumSize(new Dimension(100, 120));
 		
-		
+		// botton holder 
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(100, 120));
 		panel.setMinimumSize(new Dimension(100, 120));
 		panel.setMaximumSize(new Dimension(100, 120));
-		
-		JButton clearButton = new JButton(iconClear);
-		clearButton.setPreferredSize(new Dimension(170, 60));
-		clearButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				drawPad.clear();
-			}
-		});
-		
-		JButton e = new JButton(er);
-		e.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				drawPad.eraser();
-			}
+		//#endregion
 
-		});
+		//#region "Tools button"
+
+		// 1.
 		JButton save= new JButton(iconSave);
 		save.setPreferredSize(new Dimension(170,60));
 		save.addActionListener(new ActionListener(){
@@ -110,32 +103,17 @@ public class PaintFrame{
 		});
 		
 		
-		JButton recButton = new JButton(iconRec);
-		recButton.setPreferredSize(new Dimension(170,60));
-		recButton.addActionListener(new ActionListener(){
+		// 2.
+		JButton penButton = new JButton(iconPen);
+		penButton.setPreferredSize(new Dimension(170,60));
+		penButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				drawPad.rec();
+			drawPad.pen();
 			}
-
 		});
 		
-		JButton cirButton = new JButton(iconCir);
-		cirButton.setPreferredSize(new Dimension(170,60));
-		cirButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				drawPad.oval();
-			}
 
-		});
-		
-		JButton triButton = new JButton(iconTri);
-		triButton.setPreferredSize(new Dimension(170,60));
-		triButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				drawPad.triangle();
-			}
-
-		});
+		// 3.
 		JButton lineButton = new JButton(iconLine);
 		lineButton.setPreferredSize(new Dimension(170,60));
 		lineButton.addActionListener(new ActionListener(){
@@ -145,52 +123,104 @@ public class PaintFrame{
 		});
 		
 		
-		JButton penButton = new JButton(iconPen);
-		penButton.setPreferredSize(new Dimension(170,60));
-		penButton.addActionListener(new ActionListener(){
+		// 4.
+		JButton recButton = new JButton(iconRec);
+		recButton.setPreferredSize(new Dimension(170,60));
+		recButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-			drawPad.pen();
+				drawPad.rec();
 			}
 
 		});
 		
+		// 5.
+		JButton cirButton = new JButton(iconCir);
+		cirButton.setPreferredSize(new Dimension(170,60));
+		cirButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				drawPad.oval();
+			}
+
+		});
 		
+		// 6.
+		JButton triButton = new JButton(iconTri);
+		triButton.setPreferredSize(new Dimension(170,60));
+		triButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				drawPad.triangle();
+			}
+
+		});
+		
+		// 7.
+		JButton e = new JButton(er);
+		e.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				drawPad.eraser();
+			}
+		});
+		
+		// 8.
+		JButton clearButton = new JButton(iconClear);
+		clearButton.setPreferredSize(new Dimension(170, 60));
+		clearButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				drawPad.clear();
+			}
+		});
+		
+		// 9.
 		JButton line1Button = new JButton(iconLine1);
 		line1Button.setPreferredSize(new Dimension(170,60));
 		line1Button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.sizeLine(1);
-
 			}
-
 		});
+
+		// 10.
 		JButton line2Button = new JButton(iconLine2);
 		line2Button.setPreferredSize(new Dimension(170,60));
 		line2Button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.sizeLine(2);
 			}
-
 		});
+
+		// 11.
 		JButton line3Button = new JButton(iconLine3);
 		line3Button.setPreferredSize(new Dimension(170,60));
 		line3Button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.sizeLine(3);
 			}
-
 		});
+
+		// 12.
 		JButton line4Button = new JButton(iconLine4);
 		line4Button.setPreferredSize(new Dimension(170,60));
 		line4Button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.sizeLine(4);
 			}
-
 		});
 		
-		
-		
+		// get list of fonts
+		String fonts[] = 
+				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+		// set fonts to comboBox
+		JComboBox<String> texts = new JComboBox<String>(fonts);
+
+		// list of font size
+		String sizes[] = { "8", "9", "10", "11", "12", "14", "16", "18","20","22","24","26","28","36","48","72"};
+
+		// set font size
+		JComboBox<String> sz = new JComboBox<String>(sizes);
+		// text box
+		JTextField main=new JTextField();
+
 		texts.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				String font=texts.getSelectedItem().toString();
@@ -211,27 +241,28 @@ public class PaintFrame{
 				drawPad.text(s);
 			}
 		});
+
+		//#endregion
 		
+		//#region color button
 		
-		
+		// 1.
 		JButton redButton = new JButton(iconR);
 		redButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.red();
 			}
-
 		});
 		
+		// 2.
 		JButton whiteButton = new JButton(iconW);
 		whiteButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.white();
 			}
-
 		});
 		
-		
-		
+		// 3.
 		JButton blackButton = new JButton(iconBl);
 		blackButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -239,6 +270,7 @@ public class PaintFrame{
 			}
 		});
 		
+		// 4.
 		JButton magentaButton = new JButton(iconM);
 		magentaButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -246,6 +278,7 @@ public class PaintFrame{
 			}
 		});
 		
+		// 5.
 		JButton blueButton = new JButton(iconB);
 		blueButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -253,6 +286,7 @@ public class PaintFrame{
 			}
 		});
 		
+		// 6.
 		JButton greenButton = new JButton(iconGn);
 		greenButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -260,50 +294,50 @@ public class PaintFrame{
 			}
 		});
 		
+		// 7.
 		JButton grayButton = new JButton(iconGy);
 		grayButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.gray();
 			}
-
 		});
 		
+		// 8.
 		JButton yellowButton = new JButton(iconY);
 		yellowButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.yellow();
 			}
-
 		});
 		
+		// 9.
 		JButton orangeButton = new JButton(iconO);
 		orangeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.orange();
 			}
-
 		});
 		
-		
+		// 10.
 		JButton pinkButton = new JButton(iconP);
 		pinkButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.pink();
 			}
-
 		});
 		
+		// 11.
 		JButton cyanButton = new JButton(iconC);
 		cyanButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				drawPad.cyan();
 			}
-
 		});
-		
-		
+		//#endregion
+
+		//#region set size Buttons
+
 		save.setPreferredSize(new Dimension(90, 73));
-		
 		
 		blackButton.setPreferredSize(new Dimension(50, 60));
 		magentaButton.setPreferredSize(new Dimension(50, 60));
@@ -325,7 +359,6 @@ public class PaintFrame{
 		cirButton.setPreferredSize(new Dimension(80,60));
 		clearButton.setPreferredSize(new Dimension(80, 60));
 		
-		
 		line1Button.setPreferredSize(new Dimension(120,60));
 		line2Button.setPreferredSize(new Dimension(120,60));
 		line3Button.setPreferredSize(new Dimension(120,60));
@@ -333,9 +366,10 @@ public class PaintFrame{
 		main.setPreferredSize(new Dimension(200,50));
 		texts.setPreferredSize(new Dimension(150,30));
 		sz.setPreferredSize(new Dimension(100,30));
-		
-		
-		
+		//#endregion
+
+		//#region Add buttons to Panels
+
 		up.add(texts);
 		up.add(sz);
 		up.add(main);
@@ -365,13 +399,15 @@ public class PaintFrame{
 		panel.add(cyanButton);
 		panel.add(yellowButton);
 		panel.add(whiteButton);
-		
-		
+		//#endregion
+
+		//#region Add Panel to Main Holder
+
 		content.add(up, BorderLayout.NORTH);
 		content.add(right, BorderLayout.EAST);
 		content.add(tools, BorderLayout.WEST);
 		content.add(panel, BorderLayout.SOUTH);
-		
+		//#endregion
 		
 		frame.setSize(1700, 1700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
