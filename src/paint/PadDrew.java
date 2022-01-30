@@ -16,14 +16,18 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
-
 public class PadDrew extends JComponent{
+	
+	//#region properties
+
 	Image image;
 	Graphics2D graphics2D;
 	String fonts;
 	int x2, y2, x1, y1,w,h,xx1,yy1,i=0,size=8;
 	MouseMotionAdapter mouse;
 	MouseAdapter mouseA;
+	//#endregion
+
 	public PadDrew(){
 		removeMouseListener(mouseA);
 		removeMouseMotionListener(mouse);
@@ -54,6 +58,7 @@ public class PadDrew extends JComponent{
 		addMouseListener(mouseA);
 
 	}
+
 	public void paintComponent(Graphics g){
 		if(image == null){
 			image = createImage(getSize().width, getSize().height);
@@ -129,6 +134,7 @@ public class PadDrew extends JComponent{
 			x2 = e.getX();
 			y2 = e.getY();
 		}
+
 		public void mouseReleased(MouseEvent e){
 			x2 = e.getX();
 			y2 = e.getY();
@@ -169,8 +175,9 @@ public class PadDrew extends JComponent{
 		public void mouseDragged(MouseEvent e){
 			x2 = e.getX();
 			y2 = e.getY();
-		}
-		public void mouseReleased(MouseEvent e){
+	}
+
+	public void mouseReleased(MouseEvent e){
 			x2 = e.getX();
 			y2 = e.getY();
 			if(graphics2D != null)
@@ -190,7 +197,8 @@ public class PadDrew extends JComponent{
 		addMouseListener(mouseA);
 
 	}
-		public void pen(){
+
+	public void pen(){
 		removeMouseListener(mouseA);
 		removeMouseMotionListener(mouse);
 		mouseA=new MouseAdapter(){
@@ -220,76 +228,76 @@ public class PadDrew extends JComponent{
 
 	}
 
-		public void triangle(){
-			removeMouseListener(mouseA);
-			removeMouseMotionListener(mouse);
-			mouseA=new MouseAdapter(){
+	public void triangle(){
+		removeMouseListener(mouseA);
+		removeMouseMotionListener(mouse);
+		mouseA=new MouseAdapter(){
+		public void mousePressed(MouseEvent e){
+			x1 = e.getX();
+			y1 = e.getY();
+		}
+		public void mouseDragged(MouseEvent e){
+			x2 = e.getX();
+			y2 = e.getY();
+		}
+		public void mouseReleased(MouseEvent e){
+			x2 = e.getX();
+			y2 = e.getY();
+			if(graphics2D != null)
+			w=Math.abs(x1-x2);
+			h=Math.abs(y1-y2);
+			int a=((w^2)+(h^2))^(1/2);
+			for(int c=0;c<=(i/2);c++){
+				if(x2<x1){
+					graphics2D.drawPolygon(new int[]{x1+c,x2+c,x2+a+c},new int[] {y1+c,y2+c,y2+c},3);
+					graphics2D.drawPolygon(new int[]{x1-c,x2-c,x2+a-c},new int[] {y1-c,y2-c,y2-c},3);
+				}else{
+					graphics2D.drawPolygon(new int[]{x1+c,x2+c,x2-a+c},new int[] {y1+c,y2+c,y2+c},3);
+					graphics2D.drawPolygon(new int[]{x1-c,x2-c,x2-a-c},new int[] {y1-c,y2-c,y2-c},3);
+				}
+			}
+			repaint();
+			x1 = x2;
+			y1 = y2;
+		}
+		};
+		addMouseListener(mouseA);
+
+	}
+
+	public void line(){
+		removeMouseListener(mouseA);
+		removeMouseMotionListener(mouse);
+		mouseA=new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				x1 = e.getX();
 				y1 = e.getY();
-			}
-			public void mouseDragged(MouseEvent e){
-				x2 = e.getX();
-				y2 = e.getY();
 			}
 			public void mouseReleased(MouseEvent e){
 				x2 = e.getX();
 				y2 = e.getY();
 				if(graphics2D != null)
-				w=Math.abs(x1-x2);
-				h=Math.abs(y1-y2);
-				int a=((w^2)+(h^2))^(1/2);
-				for(int c=0;c<=(i/2);c++){
-					if(x2<x1){
-						graphics2D.drawPolygon(new int[]{x1+c,x2+c,x2+a+c},new int[] {y1+c,y2+c,y2+c},3);
-						graphics2D.drawPolygon(new int[]{x1-c,x2-c,x2+a-c},new int[] {y1-c,y2-c,y2-c},3);
-					}else{
-						graphics2D.drawPolygon(new int[]{x1+c,x2+c,x2-a+c},new int[] {y1+c,y2+c,y2+c},3);
-						graphics2D.drawPolygon(new int[]{x1-c,x2-c,x2-a-c},new int[] {y1-c,y2-c,y2-c},3);
+					for(int c=0;c<=(i/2);c++){
+						graphics2D.drawLine(x1-c, y1-c, x2-c, y2-c);
+						graphics2D.drawLine(x1+c, y1+c, x2+c, y2+c);
 					}
-				}
 				repaint();
 				x1 = x2;
 				y1 = y2;
 			}
-			};
-			addMouseListener(mouseA);
 
-		}
-		public void line(){
-			removeMouseListener(mouseA);
-			removeMouseMotionListener(mouse);
-			mouseA=new MouseAdapter(){
-				public void mousePressed(MouseEvent e){
-					x1 = e.getX();
-					y1 = e.getY();
-				}
-				public void mouseReleased(MouseEvent e){
-					x2 = e.getX();
-					y2 = e.getY();
-					if(graphics2D != null)
-						for(int c=0;c<=(i/2);c++){
-							graphics2D.drawLine(x1-c, y1-c, x2-c, y2-c);
-							graphics2D.drawLine(x1+c, y1+c, x2+c, y2+c);
-						}
-					repaint();
-					x1 = x2;
-					y1 = y2;
-				}
+		};
+		addMouseListener(mouseA);
 
-			};
-			addMouseListener(mouseA);
-
-		}
-		public void ffont(String font){
-
+	}
+		
+	public void ffont(String font){
 		fonts=font;
-		}
+	}
 
-		public void size(int size){
-
-			this.size=size;
-			}
+	public void size(int size){
+		this.size=size;
+	}
 
 	public void text(String text){
 		removeMouseListener(mouseA);
@@ -338,8 +346,6 @@ public class PadDrew extends JComponent{
 		 }
 	}
 
-
-
 	public void clear(){
 		graphics2D.setPaint(Color.white);
 		graphics2D.fillRect(0, 0, getSize().width, getSize().height);
@@ -347,6 +353,7 @@ public class PadDrew extends JComponent{
 		repaint();
 	}
 
+	//#region color
 
 	public void red(){
 		graphics2D.setPaint(Color.red);
@@ -400,5 +407,8 @@ public class PadDrew extends JComponent{
 		graphics2D.setPaint(Color.blue);
 		repaint();
 	}
+
+	//#endregion
+
 }
 
